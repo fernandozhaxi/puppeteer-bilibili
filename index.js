@@ -452,7 +452,7 @@ const downloadPath = "D:\\B站视频\\";
       const url = await page.$eval('.inline-flex.items-center.justify-center.whitespace-nowrap.rounded-md.text-sm.font-medium.ring-offset-background.transition-colors.bg-primary.text-primary-foreground.h-10.px-4.py-2', el => el.href);
       console.log('获取到下载链接', url);
       // 下载文件
-      const name = item.name + '_' + item.date + '.mp4'
+      const name = `${i + 1}.` + item.name + '_' + item.date + '.mp4'
       await downloadMp4(url, name, page)
       await sleep(60000);
     } catch (error) {
