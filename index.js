@@ -422,7 +422,7 @@ const downloadPath = "D:\\B站视频\\";
   for (let i = 0; i < urlsFromBilibili.length; i++) {
     if (i > 0) return
     const item = urlsFromBilibili[i];
-    console.log('执行任务', item);
+    console.log('执行任务', item.name);
     const page = await browser.newPage();
     page.on("console", async (msg) => {
       for (let i = 0; i < msg.args().length; ++i)
@@ -444,9 +444,7 @@ const downloadPath = "D:\\B站视频\\";
     const buttonNodes = await page.$$(".inline-flex.items-center.justify-center.whitespace-nowrap.rounded-md.ring-offset-background.transition-colors.bg-primary.text-primary-foreground.text-base.font-normal")
     const button = buttonNodes[0]
     button.click();
-
-    // 等待页面加载完成
-    await page.waitForNavigation({ waitUntil: 'networkidle0' });
+    await sleep(3000);
     try {
       // 获取下载连接
       const url = await page.$eval('.inline-flex.items-center.justify-center.whitespace-nowrap.rounded-md.text-sm.font-medium.ring-offset-background.transition-colors.bg-primary.text-primary-foreground.h-10.px-4.py-2', el => el.href);
@@ -454,10 +452,10 @@ const downloadPath = "D:\\B站视频\\";
       // 下载文件
       const name = `${i + 1}.` + item.name + '_' + item.date + '.mp4'
       await downloadMp4(url, name, page)
-      await sleep(60000);
+      await sleep(100000);
     } catch (error) {
       console.log('handle error', error);
-      await sleep(60000);
+      await sleep(100000);
     }
   }
 
